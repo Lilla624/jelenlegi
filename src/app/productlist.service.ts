@@ -30,7 +30,7 @@ export class ProductlistService {
     this.productsRef.push(candy)
    }
    deleteProduct(candy:any){  
-    this.productsRef.remove(candy.id)
+    this.productsRef.remove(candy.key)
    }
   updateProduct(candy:any){
     let key=candy.key

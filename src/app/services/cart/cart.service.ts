@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,9 +8,14 @@ import { Injectable } from '@angular/core';
 export class CartService {
   private cart: any[] = [];
 
-  constructor() {
-    this.loadCart();
-  }
+
+  ordersRef : AngularFireList<any>
+  
+    constructor(private db: AngularFireDatabase) {
+      this.ordersRef=db.list("orders")
+      this.loadCart();
+     }
+  
 
   addToCart(candy: any) {
     console.log("addToCart hívva");
@@ -47,4 +54,22 @@ export class CartService {
       this.cart = JSON.parse(savedCart);
     }
   }
+
+  addOrder(order:any){
+    order.Uid="user12"
+    order.items=this.cart
+    order.status="pending"
+    this.ordersRef.push(order)
+    this.cart=[]
+  }
+
+  getOrders(){
+      return this.ordersRef.snapshotChanges().pipe(
+        map(
+          (changes:any)=>changes.map((c:any)=> ({key:c.payload.key,...c.payload.val() }))
+        )
+      )
+      
+     }
+
 }

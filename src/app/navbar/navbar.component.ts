@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CartService } from '../cart.service';
+import { SearchService } from '../search.service';
 
 @Component({
   selector: 'app-navbar',
@@ -21,8 +22,12 @@ export class NavbarComponent {
     
   ];
 
-  constructor(private cartServ: CartService) {
+  constructor(private cartServ: CartService, public searchServ:SearchService) {
     this.cartServ.getCart().subscribe((res: any) => this.cart = res);
+  }
+
+  setSearch(car:string){
+    this.searchServ.setSearch(car)
   }
 
   addOrder() {
@@ -31,16 +36,16 @@ export class NavbarComponent {
   }
 
   
-  onSearch(): void {
-    if (this.searchQuery.trim() === '') {
-      this.searchResult = [];
-    } else {
-      this.searchResult = this.products.filter(product =>
-        product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    }
-    if (this.searchResult.length === 0) {
-      alert('Nincs találat a keresésre!');
-    }
-  }
+  // onSearch(): void {
+  //   if (this.searchQuery.trim() === '') {
+  //     this.searchResult = [];
+  //   } else {
+  //     this.searchResult = this.products.filter(product =>
+  //       product.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+  //     );
+  //   }
+  //   if (this.searchResult.length === 0) {
+  //     alert('Nincs találat a keresésre!');
+  //   }
+  // }
 }

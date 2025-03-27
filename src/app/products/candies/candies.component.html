@@ -1,6 +1,8 @@
 <!-- <p>candies works!</p>
 {{ candies | json }} -->
 
+searchText: {{searchText}}
+
 <div class="rendezes-gombok">
   <button (click)="sortProducts('low-to-high')">
     <i class="bi bi-arrow-down"></i> Legolcsóbbak
@@ -12,7 +14,7 @@
 </div>
 
 <div class="edes-gumicukrok-lista">
-  <ng-container *ngFor="let candy of candies; let i = index">
+  <ng-container *ngFor="let candy of (candies|search:searchText)|sort:order">
     <div class="edes-gumicukrok-item">
       <div class="edes-gumicukrok-card">
         <h3>{{ candy.name }}</h3>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { CartService } from '../../services/cart/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,16 +12,20 @@ export class CheckoutComponent {
   isSubmitting = false;
   successMessage: string | null = null;
 
+  constructor(private router:Router, private cartServ:CartService){}
+
   submitOrder(form: any) {
     
     if (form.valid && !this.isSubmitting) {
       this.isSubmitting = true;
+      this.cartServ.addOrder(this.order)
       this.successMessage = 'Rendelés sikeresen leadva!';
 
       setTimeout(() => {
         this.isSubmitting = false; 
         form.resetForm(); 
-        window.location.href = 'http://localhost:4200';
+        this.router.navigate(["/"])
+        
       }, 4000);
     }
   }

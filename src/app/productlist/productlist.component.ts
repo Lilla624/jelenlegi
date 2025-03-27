@@ -10,6 +10,10 @@ import { CartService } from '../cart.service';
 })
 export class ProductlistComponent {
   products: any[] = [];
+  newProduct:any={}
+  searchText="Half"
+
+  columns= [ "category", "description", "name", "picture", "price", "quantity" ]
 
   constructor(private pserv: ProductlistService, private cartServ: CartService) {
     this.pserv.getProducts().subscribe(
@@ -17,8 +21,9 @@ export class ProductlistComponent {
     );
   }
 
-  addProduct(product: any) {
-    this.cartServ.addProduct(product);
+  addProduct() {
+    this.pserv.pushProduct(this.newProduct);
+    this.newProduct={}
   }
 
   // *** Termékek rendezése ár szerint ***
@@ -28,5 +33,13 @@ export class ProductlistComponent {
     } else if (order === 'high-to-low') {
       this.products.sort((a, b) => b.ar - a.ar);
     }
+  }
+
+
+  editProduct(product:any){
+    this.pserv.updateProduct(product)
+  }
+  deleteProduct(product:any){
+    this.pserv.deleteProduct(product)
   }
 }

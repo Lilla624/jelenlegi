@@ -6,9 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CartService {
-  addProduct(product: any) {
-    throw new Error('Method not implemented.');
-  }
+  
   private kosar: any[] = [];
   private kosarSub = new BehaviorSubject<any[]>([]);
 
@@ -20,7 +18,9 @@ export class CartService {
   getCart(): Observable<any[]> {
     return this.kosarSub.asObservable();
   }
-
+  addProduct(product: any) {
+    throw new Error('Method not implemented.');
+  }
   // Termék hozzáadása a kosárhoz (kép és egyéb információk is)
   addToCart(product: any) {
     const existingItem = this.kosar.find(item => item.id === product.id);

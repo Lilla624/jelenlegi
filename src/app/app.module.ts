@@ -47,6 +47,9 @@ import { environments } from '../environment/environments';
 import { CandyListComponent } from './products/candy-list/candy-list.component';
 import { CandiesComponent } from './products/candies/candies.component';
 import { FooldalComponent } from './main-page/fooldal/fooldal.component';
+import { OrdersListComponent } from './orders-list/orders-list.component';
+import { SearchPipe } from './search.pipe';
+import { SortPipe } from './sort.pipe';
 
 
 @NgModule({
@@ -93,7 +96,10 @@ import { FooldalComponent } from './main-page/fooldal/fooldal.component';
     AdminloginComponent,
     CheckoutComponent,
     CandyListComponent,
-    CandiesComponent
+    CandiesComponent,
+    OrdersListComponent,
+    SearchPipe,
+    SortPipe
     
   ],
   imports: [

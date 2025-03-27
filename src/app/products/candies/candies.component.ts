@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { CartService } from '../../services/cart/cart.service';
+import { SearchService } from '../../search.service';
 
 @Component({
   selector: 'app-candies',
@@ -10,14 +11,26 @@ export class CandiesComponent {
 
   @Input() candies: any;
   showNotification = false;
+  searchText=""
+  order=""
 
-  constructor(private cartService: CartService, private cdr: ChangeDetectorRef) {}
+  constructor(private cartService: CartService, private cdr:ChangeDetectorRef, private searchServ:SearchService) {
+    
+    this.searchServ.getSearch().subscribe(
+      (text:any)=>{
+        console.log("Frissítés", text)
+        this.searchText=text
+        console.log("this.searchText", this.searchText)
+      }
+    )
+
+  }
 
   kosarbaRak(candy: any, quantity_in: string) {
     const termek = {
       ...candy,       
       picture: candy.picture,
-      quantity: parseInt(quantity_in)
+      mennyiseg: parseInt(quantity_in)
     };
     
     this.cartService.addToCart(termek);  
@@ -35,11 +48,13 @@ export class CandiesComponent {
     }, 500);
   }
   sortProducts(order: string) {
-    if (order === 'high-to-low') {
-      this.candies.sort((a: { price: number; }, b: { price: number; }) => b.price - a.price);  
-    } else if (order === 'low-to-high') {
-      this.candies.sort((a: { price: number; }, b: { price: number; }) => a.price - b.price);  
-    }
+    this.order=order
+
+    // if (order === 'high-to-low') {
+    //   this.candies.sort((a: { price: number; }, b: { price: number; }) => b.price - a.price);  
+    // } else if (order === 'low-to-high') {
+    //   this.candies.sort((a: { price: number; }, b: { price: number; }) => a.price - b.price);  
+    // }
   }
   
 

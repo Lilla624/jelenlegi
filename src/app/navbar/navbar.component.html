@@ -17,8 +17,8 @@
                         <li class="dropdown-submenu">
                             <a class="dropdown-item dropdown-toggle" [routerLink]="['/gumicukrok']">Gumicukrok</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" [routerLink]="['/edes-gumicukrok']">Édes</a></li>
-                                <li><a class="dropdown-item" [routerLink]="['/savanyu-gumicukrok']">Savanyú</a></li>
+                                <li><a class="dropdown-item" (click)="setSearch('sweet_gummies')" >Édes</a></li>
+                                <li><a class="dropdown-item" (click)="setSearch('sour_gummies')">Savanyú</a></li>
                             </ul>
                         </li>
                         <li class="dropdown-submenu">
@@ -59,8 +59,8 @@
 
             
             <form class="d-flex align-items-center" id="searchForm">
-                <input class="form-control me-2" type="search" placeholder="Keresés" aria-label="Search" id="searchInput"
-                       [(ngModel)]="searchQuery" (keyup.enter)="onSearch()">
+                <input class="form-control me-2" type="search"  placeholder="Keresés" aria-label="Search" id="searchInput" #searchInput
+                       [(ngModel)]="searchQuery" (keyup.enter)="setSearch(searchInput.value)">
               </form>
               
             <a class="navbar-brand" [routerLink]="['/kosar']">

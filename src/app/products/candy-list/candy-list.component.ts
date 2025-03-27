@@ -8,7 +8,7 @@ import { ProductlistService } from '../../productlist.service';
 })
 export class CandyListComponent {
   candies:any
-
+  
   constructor(private prodServ:ProductlistService){
     this.prodServ.getProducts().subscribe(
       (res)=>this.candies=res
