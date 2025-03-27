@@ -9,7 +9,10 @@ export class SearchPipe implements PipeTransform {
     if (!candies) return [];
     if (!searchText) return candies;
 
-    return candies.filter(e=>e.category.includes(searchText.toLowerCase()))
+    return candies.filter(e=>{
+      return ( e.category.toLowerCase().includes(searchText.toLowerCase()) || e.name.toLowerCase().includes(searchText.toLowerCase(),0) )
+    }
+    )
   }
 
 }
