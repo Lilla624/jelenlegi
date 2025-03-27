@@ -23,7 +23,7 @@ export class EdesGumicukrokComponent {
     const termek = {
       ...candy,       
       picture: candy.picture,
-      quantity: parseInt(quantity_in)
+      mennyiseg: parseInt(quantity_in)
     };
     
     this.cartService.addToCart(termek);  

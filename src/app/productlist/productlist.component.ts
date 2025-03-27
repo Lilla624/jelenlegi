@@ -26,7 +26,6 @@ export class ProductlistComponent {
     this.newProduct={}
   }
 
-  // *** Termékek rendezése ár szerint ***
   sortProducts(order: string) {
     if (order === 'low-to-high') {
       this.products.sort((a, b) => a.ar - b.ar);
