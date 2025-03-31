@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { SearchService } from '../search.service';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   cart: any;
   searchQuery: string = ''; 
-  searchResult: any[] = [];  
+  searchResult: any[] = [];
+  isMobile: boolean = false;
 
   
   products = [
@@ -22,8 +24,15 @@ export class NavbarComponent {
     
   ];
 
-  constructor(private cartServ: CartService, public searchServ:SearchService) {
+  constructor(private cartServ: CartService, public searchServ:SearchService, private breakpointObserver: BreakpointObserver) {
     this.cartServ.getCart().subscribe((res: any) => this.cart = res);
+  }
+
+  ngOnInit() {
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      this.isMobile = result.matches;
+      console.log('Mobil nézet:', this.isMobile);
+    });
   }
 
   setSearch(car:string){
